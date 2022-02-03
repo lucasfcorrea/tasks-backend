@@ -58,8 +58,11 @@ pipeline
         {
             steps
             {
-                git credentialsId: 'GitHub', url: 'https://github.com/lucasfcorrea/tasks-api-test'
-                bat 'mvn test'
+                dir('api-test')
+                {
+                    git credentialsId: 'GitHub', url: 'https://github.com/lucasfcorrea/tasks-api-test'
+                    bat 'mvn test'
+                }
             }
 
         }
