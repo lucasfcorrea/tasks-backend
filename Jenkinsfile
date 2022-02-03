@@ -38,7 +38,7 @@ pipeline
         {
             steps
             {
-                sleep(50)
+                sleep(10)
                 timeout(time: 1, unit: 'MINUTES') 
                 {
                     waitForQualityGate abortPipeline: true
@@ -49,7 +49,7 @@ pipeline
         {
             steps
             {
-                deploy adapters: [tomcat8(credentialsId: 'GitHub', path: '', url: 'http://localhost:8001/')], contextPath: 'tasks-backend', war: 'target/tasks-backend.war'
+                deploy adapters: [tomcat8(credentialsId: 'TomCatLogin', path: '', url: 'http://localhost:8001/')], contextPath: 'tasks-backend', war: 'target/tasks-backend.war'
 
             }
 
