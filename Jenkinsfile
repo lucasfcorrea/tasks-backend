@@ -45,15 +45,15 @@ pipeline
                 }
             }
         }
+        
         stage ('Deploy Backend')
         {
             steps
             {
                 deploy adapters: [tomcat8(credentialsId: 'TomCatLogin', path: '', url: 'http://localhost:8001/')], contextPath: 'tasks-backend', war: 'target/tasks-backend.war'
-
             }
-
         }
+
          stage ('API Test')
         {
             steps
@@ -64,7 +64,20 @@ pipeline
                     bat 'mvn test'
                 }
             }
+        }
 
+          stage ('Deploy Frontend')
+        {
+            steps
+            {
+                 dir('frontend')
+                {
+                    git credentialsId: 'GitHub', url: 'https://github.com/lucasfcorrea/tasks-frontend'
+                    bat 'mvn clean package'
+                    deploy adapters: [tomcat8(credentialsId: 'TomCatLogin', path: '', url: 'http://localhost:8001/')], contextPath: 'tasks', war: 'target/tasks.war'
+                }
+                
+            }
         }
 
     }
