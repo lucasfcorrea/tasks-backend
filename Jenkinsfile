@@ -10,14 +10,16 @@ pipeline
                 bat 'mvn clean package -DskipTests=true'
             }
         }
-    stage ('Unit Tests')
+
+        stage ('Unit Tests')
         {
             steps 
             {
                 bat 'mvn test'
             }
         }
-    stage ('Sonar Analysis')
+
+        stage ('Sonar Analysis')
         {
             environment 
             {
@@ -31,6 +33,18 @@ pipeline
               }
             }      
         }
+
+        stage ('Quality Gate')
+        {
+            steps
+            {
+                timeout(time: 1, unit: 'MINUTES') 
+                {
+                    waitForQualityGate abortPipeline: true
+                }
+            }
+        }
+
     }
 }
 
