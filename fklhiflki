@@ -1,0 +1,31 @@
+[1mdiff --git a/src/main/java/br/ce/wcaquino/taskbackend/controller/TaskController.java b/src/main/java/br/ce/wcaquino/taskbackend/controller/TaskController.java[m
+[1mindex 2b92813..c531040 100644[m
+[1m--- a/src/main/java/br/ce/wcaquino/taskbackend/controller/TaskController.java[m
+[1m+++ b/src/main/java/br/ce/wcaquino/taskbackend/controller/TaskController.java[m
+[36m@@ -5,10 +5,13 @@[m [mimport java.util.List;[m
+ import org.springframework.beans.factory.annotation.Autowired;[m
+ import org.springframework.http.HttpStatus;[m
+ import org.springframework.http.ResponseEntity;[m
+[32m+[m[32mimport org.springframework.web.bind.annotation.DeleteMapping;[m
+ import org.springframework.web.bind.annotation.GetMapping;[m
+[32m+[m[32mimport org.springframework.web.bind.annotation.PathVariable;[m
+ import org.springframework.web.bind.annotation.PostMapping;[m
+ import org.springframework.web.bind.annotation.RequestBody;[m
+ import org.springframework.web.bind.annotation.RequestMapping;[m
+[32m+[m[32mimport org.springframework.web.bind.annotation.ResponseStatus;[m
+ import org.springframework.web.bind.annotation.RestController;[m
+ [m
+ import br.ce.wcaquino.taskbackend.model.Task;[m
+[36m@@ -42,4 +45,12 @@[m [mpublic class TaskController {[m
+ 		Task saved = todoRepo.save(todo);[m
+ 		return new ResponseEntity<Task>(saved, HttpStatus.CREATED);[m
+ 	}[m
+[32m+[m[41m	[m
+[32m+[m	[32m@DeleteMapping(value = "/{id}")[m
+[32m+[m	[32m@ResponseStatus(code = HttpStatus.NO_CONTENT)[m
+[32m+[m	[32mpublic void delete(@PathVariable Long id)[m
+[32m+[m	[32m{[m
+[32m+[m		[32mtodoRepo.deleteById(id);[m
+[32m+[m	[32m}[m
+[32m+[m[41m	[m
+ }[m
