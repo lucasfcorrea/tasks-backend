@@ -100,6 +100,17 @@ pipeline
             }
         }
 
+          stage ('Health Check')
+        {
+            steps
+            {
+                dir('functional-test')
+                {
+                    bat 'mvn verify -Dskip.sure.file.tests'
+                }
+            }
+        }
+
     }
 }
 
